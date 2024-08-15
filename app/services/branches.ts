@@ -1,4 +1,5 @@
 import { endpoint } from "../config/endpoint";
+import { Branch } from "../types/branch";
 
 export async function GetAllBranches({ token }: { token: string }) {
   try {
@@ -34,14 +35,16 @@ export async function GetBranches({ token, query }: { token: string; query?: str
   }
 }
 
-export async function CreateBranch({ token }: { token: string }) {
+export async function CreateBranch({ token, branch }: { token: string; branch: Branch }) {
   try {
+    const { agency_id, address, location, telephone } = branch;
     const options: RequestInit = {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
         Authorization: `Bearer ${token}`,
       },
+      body: JSON.stringify({ agency_id, address, location, telephone }),
     };
     const response = await fetch(`${endpoint}/branch`, options);
     const data = await response.json();
@@ -51,14 +54,16 @@ export async function CreateBranch({ token }: { token: string }) {
   }
 }
 
-export async function UpdateBranch({ token, id }: { token: string; id: number }) {
+export async function UpdateBranch({ token, id, branch }: { token: string; id: number; branch: Branch }) {
   try {
+    const { agency_id, address, location, telephone } = branch;
     const options: RequestInit = {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",
         Authorization: `Bearer ${token}`,
       },
+      body: JSON.stringify({ agency_id, address, location, telephone }),
     };
     const response = await fetch(`${endpoint}/branch/${id}`, options);
     const data = await response.json();

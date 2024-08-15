@@ -39,6 +39,7 @@ export default function Users() {
     confirmModal,
     openModal,
     loading,
+    exportUsers,
   } = useUsers();
 
   return (
@@ -47,7 +48,8 @@ export default function Users() {
         <Header searchedText={searched} searchText={handleSearch} />
       </div>
       <div className="w-full h-[12%] flex items-center justify-end py-[1rem] px-[1.5rem]">
-        <CustomButton text="Nuevo" onClick={openModal} />
+        <CustomButton text="Exportar" onClick={exportUsers} buttonType="secondary" style={{ marginRight: "12px" }} />
+        <CustomButton text="Nuevo" onClick={openModal} buttonType="primary" style={{ marginLeft: "12px" }} />
       </div>
       <div className="w-full h-[60%] flex items-start justify-center px-[1.5rem] py-[1rem]">
         {loading ? (

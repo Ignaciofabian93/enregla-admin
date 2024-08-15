@@ -26,6 +26,7 @@ const useSessionStore = create<sessionStore>()(
     }),
     {
       name: "session",
+      partialize: (state) => ({ token: state.token }),
     }
   )
 );

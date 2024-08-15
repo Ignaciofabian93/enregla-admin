@@ -9,9 +9,7 @@
     "lint": "next lint"
   },
   "dependencies": {
-    "react": "^18",
-    "react-dom": "^18",
-    "next": "14.2.5",
+    "@internationalized/date": "^3.5.3",
     "@nextui-org/accordion": "^2.0.38",
     "@nextui-org/badge": "^2.0.29",
     "@nextui-org/button": "^2.0.37",
@@ -28,18 +26,27 @@
     "@nextui-org/table": "^2.0.36",
     "@nextui-org/theme": "^2.2.6",
     "@nextui-org/tooltip": "^2.0.36",
-    "react-toastify": "^10.0.5",
+    "exceljs": "^4.4.0",
+    "file-saver": "^2.0.5",
+    "next": "14.2.5",
+    "react": "^18",
     "react-apexcharts": "^1.4.1",
+    "react-dom": "^18",
+    "react-toastify": "^10.0.5",
     "zustand": "^4.5.4"
   },
   "devDependencies": {
-    "typescript": "^5",
+    "@types/file-saver": "^2.0.7",
     "@types/node": "^20",
     "@types/react": "^18",
     "@types/react-dom": "^18",
+    "eslint": "^8.57.0",
+    "eslint-config-next": "14.2.5",
+    "eslint-plugin-react": "^7.35.0",
+    "globals": "^15.9.0",
     "postcss": "^8",
     "tailwindcss": "^3.4.1",
-    "eslint": "^8",
-    "eslint-config-next": "14.2.5"
+    "typescript": "^5",
+    "typescript-eslint": "^8.1.0"
   }
 }

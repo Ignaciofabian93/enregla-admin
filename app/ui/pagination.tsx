@@ -33,7 +33,13 @@ export default function CustomPagination({
         page={page}
         onChange={handlePage}
         radius="sm"
-        classNames={{ cursor: "bg-slate-800 text-[#fff]" }}
+        color="primary"
+        classNames={{
+          item: "bg-slate-800/40 text-[#fff]",
+          cursor: "bg-slate-700/40",
+          wrapper: "bg-slate-500",
+          ellipsis: "bg-slate-900",
+        }}
       />
       <div className="w-[18%] absolute right-0 flex items-center">
         <span className="font-semibold text-[14px] text-white w-[80px] mr-[2%]">Total: {totalData}</span>

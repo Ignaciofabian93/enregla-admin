@@ -2,9 +2,10 @@ import { useEffect, useState } from "react";
 import { User } from "../types/user";
 import { Branch } from "../types/branch";
 import { toast } from "react-toastify";
-import { GetAllBranches, GetBranches } from "../services/branches";
+import { GetAllBranches } from "../services/branches";
 import { CreateUser, DeleteUser, GetUsers, UpdateUser } from "../services/users";
 import useSessionStore from "../store/session";
+import downloadExcel from "../utils/exportSheet";
 
 const defaultUser: User = {
   id: 0,
@@ -62,8 +63,6 @@ export default function useUsers() {
 
   const fetchBranches = async () => {
     const response = await GetAllBranches({ token });
-    console.log("branches", response);
-
     if (response.error) notifyError(response.error);
     else setBranches(response.branches);
   };
@@ -142,6 +141,13 @@ export default function useUsers() {
 
   const closeConfirmModal = () => setConfirmModal(false);
 
+  const exportUsers = () =>
+    downloadExcel({
+      headers: columns.filter((el) => el.key !== "options"),
+      rows: users,
+      sheet: "Usuarios",
+    });
+
   return {
     users,
     filteredUsers,
@@ -169,5 +175,6 @@ export default function useUsers() {
     closeConfirmModal,
     edit,
     confirmModal,
+    exportUsers,
   };
 }

@@ -2,7 +2,7 @@ import { Table, TableHeader, TableColumn, TableBody, TableRow, TableCell, getKey
 import { PenIcon } from "../assets/icons/pen";
 import { TrashIcon } from "../assets/icons/trash";
 import { User } from "../types/user";
-import { Branch } from "../types/branch";
+import { Branch, FormattedBranch } from "../types/branch";
 import { Vehicle } from "../types/vehicle";
 
 type ColumnProps = {
@@ -10,7 +10,7 @@ type ColumnProps = {
   label: string;
 };
 
-type Rows = User[] | Branch[] | Vehicle[];
+type Rows = User[] | FormattedBranch[] | Vehicle[];
 
 type TableProps = {
   columns: ColumnProps[];
