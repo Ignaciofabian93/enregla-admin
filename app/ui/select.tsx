@@ -34,7 +34,7 @@ export default function CustomSelect({
       selectedKeys={value}
       label={placeholder}
       color="primary"
-      className={`${sizeStyles[size]} h-[56px] mx-[8px] my-[7px]`}
+      className={`${sizeStyles[size]} h-[56px] mx-[8px] my-[8px]`}
       isDisabled={disabled}
       radius="sm"
       classNames={{

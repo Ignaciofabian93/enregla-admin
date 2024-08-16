@@ -2,15 +2,16 @@ import { Table, TableHeader, TableColumn, TableBody, TableRow, TableCell, getKey
 import { PenIcon } from "../assets/icons/pen";
 import { TrashIcon } from "../assets/icons/trash";
 import { User } from "../types/user";
-import { Branch, FormattedBranch } from "../types/branch";
-import { Vehicle } from "../types/vehicle";
+import { FormattedBranch } from "../types/branch";
+import { FormattedVehicle } from "../types/vehicle";
+import { Supply } from "../types/supply";
 
 type ColumnProps = {
   key: string;
   label: string;
 };
 
-type Rows = User[] | FormattedBranch[] | Vehicle[];
+type Rows = User[] | FormattedBranch[] | FormattedVehicle[] | Supply[];
 
 type TableProps = {
   columns: ColumnProps[];

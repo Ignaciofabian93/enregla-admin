@@ -2,7 +2,7 @@ import { useState } from "react";
 import { toast } from "react-toastify";
 import { Auth } from "../services/auth";
 import { useRouter } from "next/navigation";
-import useSessionStore from "../store/session";
+import useSessionStore, { defaultSession } from "../store/session";
 
 export default function useSession() {
   const router = useRouter();
@@ -23,7 +23,6 @@ export default function useSession() {
     if (!rut || !password) return notifyError("Porfavor complete todos los campos");
     setIsLoading(true);
     const response = await Auth({ rut, password });
-    console.log(response);
     if (response.error) return notifyError(response.error);
     else {
       notifyMessage(response.message);
@@ -33,5 +32,13 @@ export default function useSession() {
     }
   };
 
-  return { form, handleForm, login, isLoading };
+  const logout = () => {
+    setSession(defaultSession);
+    setToken("");
+    localStorage.removeItem("session");
+    router.replace("/login");
+    notifyMessage("Sesión cerrada");
+  };
+
+  return { form, handleForm, login, isLoading, logout };
 }

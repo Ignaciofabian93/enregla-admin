@@ -1,5 +1,5 @@
 "use client";
-import { usePathname, useRouter } from "next/navigation";
+import { usePathname } from "next/navigation";
 import { BuildingIcon } from "../assets/icons/building";
 import { HomeIcon } from "../assets/icons/home";
 import { LabelIcon } from "../assets/icons/label";
@@ -8,6 +8,7 @@ import { WheelIcon } from "../assets/icons/wheel";
 import { Tooltip } from "@nextui-org/tooltip";
 import { LogoutIcon } from "../assets/icons/logout";
 import Link from "next/link";
+import useSession from "../hooks/useSession";
 
 const navigationMenu = [
   { name: "Inicio", path: "/home", icon: <HomeIcon color="#fff" /> },
@@ -19,7 +20,7 @@ const navigationMenu = [
 
 export default function Navigation() {
   const path = usePathname();
-  const router = useRouter();
+  const { logout } = useSession();
 
   return (
     <section className="w-full h-[50px] flex items-center justify-center">
@@ -55,7 +56,7 @@ export default function Navigation() {
             rounded-lg bg-slate-700
             hover:scale-110 hover:bg-rose-600/50 transition-transform-colors duration-300 ease-in-out
             `}
-              onClick={() => router.replace("/login")}
+              onClick={logout}
             >
               <LogoutIcon />
             </div>

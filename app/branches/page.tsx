@@ -49,7 +49,7 @@ export default function Branches() {
         <CustomButton text="Exportar" onClick={exportBranches} buttonType="secondary" style={{ marginRight: "12px" }} />
         <CustomButton text="Nuevo" onClick={openModal} buttonType="primary" style={{ marginLeft: "12px" }} />
       </div>
-      <div className="w-full h-[60%] flex items-start justify-center px-[1.5rem] py-[1rem]">
+      <div className="w-full h-[60%] flex items-start justify-center px-[1.5rem] py-[0.5rem]">
         {loading ? (
           <div className="w-full h-full flex items-center justify-center">
             <Spinner size="md" color="white" />

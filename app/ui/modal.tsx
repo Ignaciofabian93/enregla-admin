@@ -9,6 +9,7 @@ type ModalProps = {
   title: string;
   action: () => void;
   actionTitle?: string;
+  isLoading?: boolean;
 };
 
 export default function CustomModal({
@@ -19,6 +20,7 @@ export default function CustomModal({
   title,
   action,
   actionTitle = "Guardar",
+  isLoading = false,
 }: ModalProps) {
   return (
     <>
@@ -35,7 +37,7 @@ export default function CustomModal({
               <ModalHeader className="text-white">{title}</ModalHeader>
               <ModalBody className="w-full h-full">{children}</ModalBody>
               <ModalFooter>
-                <CustomButton text={actionTitle} onClick={action} buttonType="primary" />
+                <CustomButton text={actionTitle} onClick={action} buttonType="primary" isLoading={isLoading} />
                 <CustomButton text="Cerrar" onClick={onClose} buttonType="secondary" />
               </ModalFooter>
             </>

@@ -65,7 +65,7 @@ export default function Users() {
           />
         )}
       </div>
-      <div className="w-full h-[12%] flex items-center justify-center px-[1.5rem] py-[1rem]">
+      <div className="w-full h-[12%] flex items-center justify-center px-[1.5rem] py-[0.5rem]">
         <CustomPagination
           page={page}
           totalpages={totalPages}

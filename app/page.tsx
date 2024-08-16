@@ -2,11 +2,13 @@
 import { useRouter } from "next/navigation";
 import { Spinner } from "@nextui-org/spinner";
 import { useEffect } from "react";
+import { GetMe } from "./services/auth";
 import useSessionStore from "./store/session";
 
 export default function Auth() {
   const router = useRouter();
   const token = useSessionStore((token) => token.token);
+  const { setSession } = useSessionStore();
 
   const redirect = (path: string) => {
     setTimeout(() => {
@@ -16,11 +18,25 @@ export default function Auth() {
 
   useEffect(() => {
     if (token) {
+      getUserInfo();
       redirect("/home");
     } else {
       redirect("/login");
     }
   }, [token]);
+
+  const getUserInfo = async () => {
+    const response = await GetMe({ token });
+    if (response.user) {
+      const session = {
+        id: response.user.id,
+        email: response.user.email,
+        name: response.user.name,
+        rut: response.user.rut,
+      };
+      setSession(session);
+    }
+  };
 
   return (
     <main className="w-screen h-screen">
