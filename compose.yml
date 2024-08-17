@@ -1,0 +1,17 @@
+services:
+  web:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    restart: always
+    container_name: enregla-web
+    env_file:
+      - .env
+    ports:
+      - "3001:3001"
+    networks:
+      - bridge-network
+
+networks:
+  bridge-network:
+    external: true

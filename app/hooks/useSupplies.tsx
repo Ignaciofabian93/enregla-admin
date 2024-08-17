@@ -45,16 +45,12 @@ export default function useSupplies() {
   const notifyError = (error: string) => toast.error(error);
 
   useEffect(() => {
-    if (token) {
-      fetchSupplies();
-    }
-  }, [page, rows, token]);
+    fetchSupplies();
+  }, [page, rows]);
 
   useEffect(() => {
-    if (token) {
-      fetchBranches();
-    }
-  }, [showModal, token]);
+    fetchBranches();
+  }, [showModal]);
 
   const fetchBranches = async () => {
     const response = await GetAllBranches({ token });

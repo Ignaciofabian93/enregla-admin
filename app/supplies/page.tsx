@@ -1,12 +1,14 @@
 "use client";
 import { Spinner } from "@nextui-org/spinner";
+import dynamic from "next/dynamic";
 import Layout from "@/app/ui/layout";
 import Header from "../ui/header";
 import CustomButton from "../ui/button";
 import CustomTable from "../ui/table";
 import CustomPagination from "../ui/pagination";
-import CustomModal from "../ui/modal";
 import useSupplies from "../hooks/useSupplies";
+
+const CustomModal = dynamic(() => import("../ui/modal"), { ssr: false });
 
 export default function Supplies() {
   const {
@@ -89,7 +91,7 @@ export default function Supplies() {
       >
         <div className="w-full h-fit">
           <h4 className="text-base font-semibold text-white">
-            Realmente desea eliminar a {supply.category} - {supply.name}
+            Realmente desea eliminar {supply.category} - {supply.name}
           </h4>
         </div>
       </CustomModal>

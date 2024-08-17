@@ -3,14 +3,15 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev",
+    "dev": "next dev -p 3001",
     "build": "next build",
-    "start": "next start",
+    "start": "next start -p 3001",
     "lint": "next lint"
   },
   "dependencies": {
     "@internationalized/date": "^3.5.3",
     "@nextui-org/accordion": "^2.0.38",
+    "@nextui-org/autocomplete": "^2.1.5",
     "@nextui-org/badge": "^2.0.29",
     "@nextui-org/button": "^2.0.37",
     "@nextui-org/card": "^2.0.31",
@@ -28,6 +29,7 @@
     "@nextui-org/tooltip": "^2.0.36",
     "exceljs": "^4.4.0",
     "file-saver": "^2.0.5",
+    "framer-motion": "^11.3.28",
     "next": "14.2.5",
     "react": "^18",
     "react-apexcharts": "^1.4.1",
