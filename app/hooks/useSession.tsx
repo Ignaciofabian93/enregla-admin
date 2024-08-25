@@ -2,11 +2,11 @@ import { useState } from "react";
 import { toast } from "react-toastify";
 import { Auth } from "../services/auth";
 import { useRouter } from "next/navigation";
-import useSessionStore, { defaultSession } from "../store/session";
+import useSessionStore from "../store/session";
 
 export default function useSession() {
   const router = useRouter();
-  const { setSession, setToken } = useSessionStore();
+  const { setSession, clearSession } = useSessionStore();
   const [form, setForm] = useState<{ rut: string; password: string }>({
     rut: "",
     password: "",
@@ -25,16 +25,21 @@ export default function useSession() {
     const response = await Auth({ rut, password });
     if (response.error) return notifyError(response.error);
     else {
+      const newSession = {
+        token: response.token,
+        id: response.user.id,
+        email: response.user.email,
+        name: response.user.name,
+        rut: response.user.rut,
+      };
       notifyMessage(response.message);
-      setSession(response.user);
-      setToken(response.token);
+      setSession(newSession);
       router.replace("/home");
     }
   };
 
   const logout = () => {
-    setSession(defaultSession);
-    setToken("");
+    clearSession();
     localStorage.removeItem("session");
     router.replace("/login");
     notifyMessage("Sesión cerrada");

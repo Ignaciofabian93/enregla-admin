@@ -27,7 +27,7 @@ const columns = [
 ];
 
 export default function useVehicle() {
-  const { token } = useSessionStore();
+  const { session } = useSessionStore();
   const [brands, setBrands] = useState<Brand[]>([]);
   const [models, setModels] = useState<Model[]>([]);
   const [vehicles, setVehicles] = useState<Vehicle[]>([]);
@@ -55,7 +55,7 @@ export default function useVehicle() {
 
   const fetchVehicles = async () => {
     setLoading(true);
-    const response = await GetVehicles({ token, query: `?page=${page}&rows=${rows}` });
+    const response = await GetVehicles({ token: session.token, query: `?page=${page}&rows=${rows}` });
     if (response.error) notifyError(response.error), setLoading(false);
     else {
       setLoading(false);
@@ -65,13 +65,13 @@ export default function useVehicle() {
   };
 
   const fetchVehicleBrands = async () => {
-    const response = await GetVehicleBrands({ token });
+    const response = await GetVehicleBrands({ token: session.token });
     if (response.error) notifyError(response.error);
     else setBrands(response.brands);
   };
 
   const fetchVehicleModels = async () => {
-    const response = await GetVehicleModels({ token });
+    const response = await GetVehicleModels({ token: session.token });
     if (response.error) notifyError(response.error);
     else setModels(response.models);
   };
@@ -101,7 +101,7 @@ export default function useVehicle() {
   };
 
   const confirmDelete = async () => {
-    const response = await DeleteVehicle({ token, vehicle_id: vehicle.id });
+    const response = await DeleteVehicle({ token: session.token, vehicle_id: vehicle.id });
     if (response.error) notifyError(response.error);
     else {
       notifyMessage(response.message);
@@ -126,8 +126,8 @@ export default function useVehicle() {
     const { brand, brand_id, model, logo, id } = vehicle;
     setLoading(true);
     const response = edit
-      ? await UpdateVehicle({ token, model_id: id, brand, brand_id, model, logo })
-      : await SaveVehicle({ token, brand, brand_id, model, logo });
+      ? await UpdateVehicle({ token: session.token, model_id: id, brand, brand_id, model, logo })
+      : await SaveVehicle({ token: session.token, brand, brand_id, model, logo });
     if (response.error) notifyError(response.error), setLoading(false), setEdit(false);
     else {
       setLoading(false);

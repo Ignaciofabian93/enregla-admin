@@ -7,7 +7,7 @@ import useSessionStore from "./store/session";
 
 export default function Auth() {
   const router = useRouter();
-  const token = useSessionStore((token) => token.token);
+  const { session } = useSessionStore();
   const { setSession } = useSessionStore();
 
   const redirect = (path: string) => {
@@ -17,24 +17,25 @@ export default function Auth() {
   };
 
   useEffect(() => {
-    if (token) {
+    if (session.token) {
       getUserInfo();
       redirect("/home");
     } else {
       redirect("/login");
     }
-  }, [token]);
+  }, [session]);
 
   const getUserInfo = async () => {
-    const response = await GetMe({ token });
+    const response = await GetMe({ token: session.token });
     if (response.user) {
-      const session = {
+      const newSession = {
+        ...session,
         id: response.user.id,
         email: response.user.email,
         name: response.user.name,
         rut: response.user.rut,
       };
-      setSession(session);
+      setSession(newSession);
     }
   };
 

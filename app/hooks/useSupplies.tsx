@@ -9,12 +9,13 @@ import downloadExcel from "../utils/exportSheet";
 
 const defaultSupply: Supply = {
   id: 0,
+  branch: "",
   agency: "",
   category: "",
   name: "",
   quantity: 0,
   price: 0,
-  branch: "",
+  branch_id: 0,
 };
 
 const columns = [
@@ -28,7 +29,7 @@ const columns = [
 ];
 
 export default function useSupplies() {
-  const { token } = useSessionStore();
+  const { session } = useSessionStore();
   const [branches, setBranches] = useState<Branch[]>([]);
   const [supplies, setSupplies] = useState<Supply[]>([]);
   const [total, setTotal] = useState<number>(0);
@@ -53,14 +54,14 @@ export default function useSupplies() {
   }, [showModal]);
 
   const fetchBranches = async () => {
-    const response = await GetAllBranches({ token });
+    const response = await GetAllBranches({ token: session.token });
     if (response.error) notifyError(response.error);
     else setBranches(response.branches);
   };
 
   const fetchSupplies = async () => {
     setLoading(true);
-    const response = await GetSupplies({ token, query: `?page=${page}&rows=${rows}` });
+    const response = await GetSupplies({ token: session.token, query: `?page=${page}&rows=${rows}` });
     if (response.error) notifyError(response.error), setLoading(false);
     else {
       setSupplies(response.supplies);
@@ -80,34 +81,41 @@ export default function useSupplies() {
     return (
       supply.name.toLowerCase().includes(searched.toLowerCase()) ||
       supply.category.toLowerCase().includes(searched.toLowerCase()) ||
-      supply.branch.toLowerCase().includes(searched.toLowerCase()) ||
-      supply.agency.toLowerCase().includes(searched.toLowerCase()) ||
+      supply?.branch?.toLowerCase().includes(searched.toLowerCase()) ||
+      supply?.agency?.toLowerCase().includes(searched.toLowerCase()) ||
       supply.price.toString().toLowerCase().includes(searched.toLowerCase()) ||
       supply.quantity.toString().toLowerCase().includes(searched.toLowerCase())
     );
   });
   const openModal = () => setShowModal(true);
-  const closeModal = () => [setShowModal(false), setSupply(defaultSupply)];
+  const closeModal = () => [setShowModal(false), setSupply(defaultSupply), setEdit(false)];
 
   const handleSupply = (field: string, value: string) => {
-    setSupply({ ...supply, [field]: value });
+    if (field === "branch") {
+      const findBranch = branches.find((branch) => branch.address === value);
+      setSupply({ ...supply, branch: value, branch_id: findBranch?.id as number });
+    } else {
+      setSupply({ ...supply, [field]: value });
+    }
   };
 
   const selectSupply = (supply_id: number) => {
-    const supply = supplies.find((supply) => supply.id === supply_id);
-    if (supply) setSupply(supply), openModal(), setEdit(true);
+    const supplySelected = supplies.find((supply) => supply.id === supply_id);
+    if (supplySelected) setSupply(supplySelected), openModal(), setEdit(true);
   };
 
+  console.log("SUPPLY : ", supply);
+
   const saveSupply = async () => {
-    const { name, category, branch, agency, price, quantity } = supply;
-    if (!name || !category || !agency || !branch || !quantity || !price) {
+    const { name, category, branch, price, quantity } = supply;
+    if (!name || !category || !branch || !quantity || !price) {
       notifyError("Por favor complete todos los campos");
       return;
     }
     const findBranch = branches.find((branch) => branch.address === supply.branch);
     const response = edit
       ? await UpdateSupply({
-          token,
+          token: session.token,
           supply_id: supply.id,
           category,
           name,
@@ -115,13 +123,20 @@ export default function useSupplies() {
           price,
           branch_id: findBranch?.id as number,
         })
-      : await CreateSupply({ token, category, name, quantity, price, branch_id: findBranch?.id as number });
+      : await CreateSupply({
+          token: session.token,
+          category,
+          name,
+          quantity,
+          price,
+          branch_id: findBranch?.id as number,
+        });
     if (response.error) notifyError(response.error);
-    else notifyMessage(response.message), closeModal(), fetchSupplies();
+    else notifyMessage(response.message), closeModal(), fetchSupplies(), setEdit(false);
   };
 
   const confirmDelete = async () => {
-    const response = await DeleteSupply({ token, supply_id: supply.id });
+    const response = await DeleteSupply({ token: session.token, supply_id: supply.id });
     if (response.error) notifyError(response.error);
     else {
       notifyMessage(response.message);
@@ -141,7 +156,7 @@ export default function useSupplies() {
     downloadExcel({
       headers: columns.filter((el) => el.key !== "options"),
       rows: supplies,
-      sheet: "Usuarios",
+      sheet: "Insumos",
     });
 
   return {

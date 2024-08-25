@@ -1,5 +1,5 @@
 import { create } from "zustand";
-import { persist } from "zustand/middleware";
+import { persist, createJSONStorage } from "zustand/middleware";
 import { Session } from "../types/session";
 
 export const defaultSession: Session = {
@@ -7,13 +7,13 @@ export const defaultSession: Session = {
   email: "",
   name: "",
   rut: "",
+  token: "",
 };
 
 type sessionStore = {
   session: Session;
   setSession: (session: Session) => void;
-  token: string;
-  setToken: (token: string) => void;
+  clearSession: () => void;
 };
 
 const useSessionStore = create<sessionStore>()(
@@ -21,12 +21,11 @@ const useSessionStore = create<sessionStore>()(
     (set) => ({
       session: defaultSession,
       setSession: (session: Session) => set({ session }),
-      token: "",
-      setToken: (token: string) => set({ token }),
+      clearSession: () => set({ session: defaultSession }),
     }),
     {
       name: "session",
-      partialize: (state) => ({ token: state.token }),
+      storage: createJSONStorage(() => localStorage),
     }
   )
 );

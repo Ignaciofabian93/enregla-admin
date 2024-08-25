@@ -7,6 +7,7 @@ import CustomButton from "../ui/button";
 import CustomTable from "../ui/table";
 import CustomPagination from "../ui/pagination";
 import useSupplies from "../hooks/useSupplies";
+import SupplyForm from "./_form";
 
 const CustomModal = dynamic(() => import("../ui/modal"), { ssr: false });
 
@@ -75,16 +76,15 @@ export default function Supplies() {
       <CustomModal
         isOpen={showModal}
         onClose={closeModal}
-        title={edit ? "Editar usuario" : "Nuevo usuario"}
+        title={edit ? "Editar insumo" : "Nuevo insumo"}
         action={saveSupply}
       >
-        <div>asjhas</div>
-        {/* <UserForm branches={branches} user={user} handleSupply={handleSupply} roles={userRoles} /> */}
+        <SupplyForm branches={branches} supply={supply} handleSupply={handleSupply} />
       </CustomModal>
       <CustomModal
         isOpen={confirmModal}
         onClose={closeConfirmModal}
-        title="Eliminar usuario"
+        title="Eliminar insumo"
         action={confirmDelete}
         actionTitle="Eliminar"
         size="xl"

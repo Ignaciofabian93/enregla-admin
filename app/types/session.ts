@@ -3,4 +3,5 @@ export type Session = {
   email: string;
   name: string;
   rut: string;
+  token: string;
 };

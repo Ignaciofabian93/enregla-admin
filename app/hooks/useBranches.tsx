@@ -29,7 +29,7 @@ const columns = [
 ];
 
 export default function useBranch() {
-  const { token } = useSessionStore();
+  const { session } = useSessionStore();
   const [agencies, setAgencies] = useState<Agency[]>([]);
   const [branches, setBranches] = useState<Branch[]>([]);
   const [total, setTotal] = useState<number>(0);
@@ -55,7 +55,7 @@ export default function useBranch() {
 
   const fetchBranches = async () => {
     setLoading(true);
-    const response = await GetBranches({ token, query: `?page=${page}&rows=${rows}` });
+    const response = await GetBranches({ token: session.token, query: `?page=${page}&rows=${rows}` });
     if (response.error) notifyError(response.error), setLoading(false);
     else {
       setBranches(response.branches);
@@ -65,7 +65,7 @@ export default function useBranch() {
   };
 
   const fetchAgencies = async () => {
-    const response = await GetAllAgencies({ token });
+    const response = await GetAllAgencies({ token: session.token });
     if (response.error) notifyError(response.error);
     else setAgencies(response.agencies);
   };
@@ -114,13 +114,15 @@ export default function useBranch() {
       notifyError("Por favor complete todos los campos");
       return;
     }
-    const response = edit ? await UpdateBranch({ token, id, branch }) : await CreateBranch({ token, branch });
+    const response = edit
+      ? await UpdateBranch({ token: session.token, id, branch })
+      : await CreateBranch({ token: session.token, branch });
     if (response.error) notifyError(response.error);
     else notifyMessage(response.message), closeModal(), fetchBranches();
   };
 
   const confirmDelete = async () => {
-    const response = await DeleteBranch({ token, id: branch.id });
+    const response = await DeleteBranch({ token: session.token, id: branch.id });
     if (response.error) notifyError(response.error);
     else {
       notifyMessage(response.message);

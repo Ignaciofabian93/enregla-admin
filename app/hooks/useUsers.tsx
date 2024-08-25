@@ -33,7 +33,7 @@ const columns = [
 ];
 
 export default function useUsers() {
-  const { token } = useSessionStore();
+  const { session } = useSessionStore();
   const [branches, setBranches] = useState<Branch[]>([]);
   const [users, setUsers] = useState<User[]>([]);
   const [total, setTotal] = useState<number>(0);
@@ -50,26 +50,26 @@ export default function useUsers() {
   const notifyError = (error: string) => toast.error(error);
 
   useEffect(() => {
-    if (token) {
+    if (session.token) {
       fetchUsers();
     }
-  }, [page, rows, token]);
+  }, [page, rows, session]);
 
   useEffect(() => {
-    if (token) {
+    if (session.token) {
       fetchBranches();
     }
-  }, [showModal, token]);
+  }, [showModal, session]);
 
   const fetchBranches = async () => {
-    const response = await GetAllBranches({ token });
+    const response = await GetAllBranches({ token: session.token });
     if (response.error) notifyError(response.error);
     else setBranches(response.branches);
   };
 
   const fetchUsers = async () => {
     setLoading(true);
-    const response = await GetUsers({ token, query: `?page=${page}&rows=${rows}` });
+    const response = await GetUsers({ token: session.token, query: `?page=${page}&rows=${rows}` });
     if (response.error) notifyError(response.error), setLoading(false);
     else {
       setUsers(response.users);
@@ -119,13 +119,15 @@ export default function useUsers() {
       notifyError("Por favor complete todos los campos");
       return;
     }
-    const response = edit ? await UpdateUser({ token, id: user.id, user }) : await CreateUser({ token, user });
+    const response = edit
+      ? await UpdateUser({ token: session.token, id: user.id, user })
+      : await CreateUser({ token: session.token, user });
     if (response.error) notifyError(response.error);
     else notifyMessage(response.message), closeModal(), fetchUsers();
   };
 
   const confirmDelete = async () => {
-    const response = await DeleteUser({ token, id: user.id });
+    const response = await DeleteUser({ token: session.token, id: user.id });
     if (response.error) notifyError(response.error);
     else {
       notifyMessage(response.message);
