@@ -1,10 +1,10 @@
 import { Table, TableHeader, TableColumn, TableBody, TableRow, TableCell, getKeyValue } from "@nextui-org/table";
-import { PenIcon } from "../assets/icons/pen";
-import { TrashIcon } from "../assets/icons/trash";
-import { User } from "../types/user";
-import { FormattedBranch } from "../types/branch";
-import { FormattedVehicle } from "../types/vehicle";
-import { Supply } from "../types/supply";
+import { PenIcon } from "../../assets/icons/pen";
+import { TrashIcon } from "../../assets/icons/trash";
+import { User } from "../../types/user";
+import { FormattedBranch } from "../../types/branch";
+import { FormattedVehicle } from "../../types/vehicle";
+import { Supply } from "../../types/supply";
 
 type ColumnProps = {
   key: string;

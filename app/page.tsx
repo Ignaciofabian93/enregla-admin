@@ -2,13 +2,12 @@
 import { useRouter } from "next/navigation";
 import { Spinner } from "@nextui-org/spinner";
 import { useEffect } from "react";
-import { GetMe } from "./services/auth";
-import useSessionStore from "./store/session";
+import useSessionStore from "@/store/session";
+import { GetMe } from "@/services/auth";
 
 export default function Auth() {
   const router = useRouter();
-  const { session } = useSessionStore();
-  const { setSession } = useSessionStore();
+  const { session, setSession } = useSessionStore();
 
   const redirect = (path: string) => {
     setTimeout(() => {

@@ -1,14 +1,14 @@
+import { UserIcon } from "../../assets/icons/user";
 import Image from "next/image";
-import { UserIcon } from "../assets/icons/user";
-import useSessionStore from "../store/session";
 import CustomInput from "./input";
+import useSessionStore from "@/store/session";
 
 type Header = {
   searchedText: string;
   searchText: (text: string) => void;
 };
 
-const logo = require("@/app/assets/images/brand.png");
+const logo = require("@/assets/images/brand.png");
 
 export default function Header({ searchedText, searchText }: Header) {
   const { session } = useSessionStore();

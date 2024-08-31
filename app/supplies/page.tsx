@@ -6,7 +6,7 @@ import Header from "../ui/header";
 import CustomButton from "../ui/button";
 import CustomTable from "../ui/table";
 import CustomPagination from "../ui/pagination";
-import useSupplies from "../hooks/useSupplies";
+import useSupplies from "../../hooks/useSupplies";
 import SupplyForm from "./_form";
 
 const CustomModal = dynamic(() => import("../ui/modal"), { ssr: false });

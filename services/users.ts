@@ -1,4 +1,4 @@
-import { endpoint } from "../config/endpoint";
+import { endpoint } from "./endpoint";
 
 export async function GetUsers({ token, query }: { token: string; query: string | null }) {
   try {

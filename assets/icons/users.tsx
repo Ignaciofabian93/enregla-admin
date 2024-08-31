@@ -1,4 +1,4 @@
-import { Icon } from "@/app/types/icon";
+import { Icon } from "@/types/icon";
 import { forwardRef } from "react";
 
 export const UsersIcon = forwardRef<SVGSVGElement, Icon>(({ color = "#fff" }, ref) => (

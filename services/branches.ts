@@ -1,4 +1,4 @@
-import { endpoint } from "../config/endpoint";
+import { endpoint } from "./endpoint";
 import { Branch } from "../types/branch";
 
 export async function GetAllBranches({ token }: { token: string }) {

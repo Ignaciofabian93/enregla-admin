@@ -1,4 +1,4 @@
-import { endpoint } from "../config/endpoint";
+import { endpoint } from "./endpoint";
 
 export const GetAllAgencies = async ({ token }: { token: string }) => {
   try {

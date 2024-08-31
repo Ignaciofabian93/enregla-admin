@@ -1,4 +1,4 @@
-import { endpoint } from "../config/endpoint";
+import { endpoint } from "./endpoint";
 
 export async function GetVehicleBrands({ token }: { token: string }) {
   try {
@@ -97,8 +97,6 @@ export async function UpdateVehicle({
   logo: string;
 }) {
   try {
-    console.log("body!!: ", model, model_id, brand, brand_id);
-
     const options: RequestInit = {
       method: "PUT",
       headers: {

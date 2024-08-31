@@ -2,10 +2,10 @@
 import Image from "next/image";
 import CustomInput from "../ui/input";
 import CustomButton from "../ui/button";
-import useSession from "../hooks/useSession";
-import { validate_password, validate_rut } from "../utils/regexValidations";
+import useSession from "../../hooks/useSession";
+import { validate_email, validate_password } from "@/utils/regexValidations";
 
-const brand = require("@/app/assets/images/brand.png");
+const brand = require("@/assets/images/brand.png");
 
 export default function Login() {
   const { form, handleForm, isLoading, login } = useSession();
@@ -19,10 +19,10 @@ export default function Login() {
           </div>
           <div className="w-[40%] h-[40%] flex flex-col items-center">
             <CustomInput
-              value={form.rut}
-              onChange={(e) => handleForm("rut", e.target.value)}
-              placeholder="RUT"
-              isInvalid={validate_rut(form.rut)}
+              value={form.email}
+              onChange={(e) => handleForm("email", e.target.value)}
+              placeholder="Email"
+              isInvalid={validate_email(form.email)}
               errorMessage={"Porfavor ingrese un RUT válido"}
             />
             <CustomInput

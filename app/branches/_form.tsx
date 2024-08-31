@@ -1,5 +1,5 @@
-import { Agency } from "../types/agency";
-import { Branch } from "../types/branch";
+import { Agency } from "../../types/agency";
+import { Branch } from "../../types/branch";
 import CustomInput from "../ui/input";
 import CustomSelect from "../ui/select";
 

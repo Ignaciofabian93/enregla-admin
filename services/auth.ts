@@ -1,13 +1,13 @@
-import { endpoint } from "../config/endpoint";
+import { endpoint } from "./endpoint";
 
-export async function Auth({ rut, password }: { rut: string; password: string }) {
+export async function Auth({ email, password }: { email: string; password: string }) {
   try {
     const options: RequestInit = {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({ rut, password }),
+      body: JSON.stringify({ email, password }),
     };
     const response = await fetch(`${endpoint}/auth`, options);
     const data = await response.json();

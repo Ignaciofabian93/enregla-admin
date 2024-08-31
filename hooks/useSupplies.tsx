@@ -4,8 +4,8 @@ import { toast } from "react-toastify";
 import { GetAllBranches } from "../services/branches";
 import { CreateSupply, UpdateSupply, GetSupplies, DeleteSupply } from "../services/supplies";
 import { Supply } from "../types/supply";
-import useSessionStore from "../store/session";
-import downloadExcel from "../utils/exportSheet";
+import useSessionStore from "@/store/session";
+import downloadExcel from "@/utils/exportSheet";
 
 const defaultSupply: Supply = {
   id: 0,
@@ -103,8 +103,6 @@ export default function useSupplies() {
     const supplySelected = supplies.find((supply) => supply.id === supply_id);
     if (supplySelected) setSupply(supplySelected), openModal(), setEdit(true);
   };
-
-  console.log("SUPPLY : ", supply);
 
   const saveSupply = async () => {
     const { name, category, branch, price, quantity } = supply;

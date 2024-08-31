@@ -4,18 +4,19 @@ import { Branch } from "../types/branch";
 import { toast } from "react-toastify";
 import { GetAllBranches } from "../services/branches";
 import { CreateUser, DeleteUser, GetUsers, UpdateUser } from "../services/users";
-import useSessionStore from "../store/session";
-import downloadExcel from "../utils/exportSheet";
+import useSessionStore from "@/store/session";
+import downloadExcel from "@/utils/exportSheet";
 
 const defaultUser: User = {
   id: 0,
   name: "",
-  rut: "",
   email: "",
   branch_id: 0,
   branch: "",
   role_id: 0,
   role: "",
+  password: "",
+  password2: "",
 };
 
 const userRoles = [
@@ -25,7 +26,6 @@ const userRoles = [
 
 const columns = [
   { label: "Nombre", key: "name" },
-  { label: "RUT", key: "rut" },
   { label: "Email", key: "email" },
   { label: "Sucursal", key: "branch" },
   { label: "Cargo", key: "role" },
@@ -88,7 +88,6 @@ export default function useUsers() {
   const filteredUsers = users.filter((user) => {
     return (
       user.name.toLowerCase().includes(searched.toLowerCase()) ||
-      user.rut.toLowerCase().includes(searched.toLowerCase()) ||
       user.email.toLowerCase().includes(searched.toLowerCase()) ||
       user.branch.toLowerCase().includes(searched.toLowerCase()) ||
       user.role.toLowerCase().includes(searched.toLowerCase())
@@ -114,9 +113,12 @@ export default function useUsers() {
   };
 
   const saveUser = async () => {
-    const { name, rut, email, branch_id, role_id } = user;
-    if (!name || !rut || !email || !branch_id || !role_id) {
+    const { name, email, branch_id, role_id, password, password2 } = user;
+    if (!name || !email || !branch_id || !role_id || !password) {
       notifyError("Por favor complete todos los campos");
+      return;
+    } else if (password !== password2) {
+      notifyError("Las contraseñas no coinciden");
       return;
     }
     const response = edit

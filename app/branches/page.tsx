@@ -6,7 +6,7 @@ import Header from "../ui/header";
 import Layout from "../ui/layout";
 import CustomTable from "../ui/table";
 import CustomPagination from "../ui/pagination";
-import useBranch from "../hooks/useBranches";
+import useBranch from "../../hooks/useBranches";
 
 const BranchForm = dynamic(() => import("./_form"), { ssr: false });
 const CustomModal = dynamic(() => import("../ui/modal"), { ssr: false });

@@ -2,6 +2,7 @@ export type Session = {
   id: number;
   email: string;
   name: string;
-  rut: string;
   token: string;
+  branch_id: number;
+  role_id: number;
 };

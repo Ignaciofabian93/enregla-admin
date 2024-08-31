@@ -1,4 +1,4 @@
-import { Brand, Model, Vehicle } from "../types/vehicle";
+import { Brand, Model, Vehicle } from "../../types/vehicle";
 import Image from "next/image";
 import CustomInput from "../ui/input";
 import CustomSelect from "../ui/select";

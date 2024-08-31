@@ -1,13 +1,14 @@
+import { Session } from "@/types/session";
 import { create } from "zustand";
 import { persist, createJSONStorage } from "zustand/middleware";
-import { Session } from "../types/session";
 
 export const defaultSession: Session = {
   id: 0,
   email: "",
   name: "",
-  rut: "",
   token: "",
+  branch_id: 0,
+  role_id: 0,
 };
 
 type sessionStore = {

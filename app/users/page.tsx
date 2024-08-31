@@ -1,6 +1,6 @@
 "use client";
 import dynamic from "next/dynamic";
-import useUsers from "../hooks/useUsers";
+import useUsers from "../../hooks/useUsers";
 import CustomButton from "../ui/button";
 import Header from "../ui/header";
 import Layout from "../ui/layout";

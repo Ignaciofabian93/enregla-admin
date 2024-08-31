@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
 import { toast } from "react-toastify";
-import useSessionStore from "../store/session";
 import { Brand, Model, Vehicle } from "../types/vehicle";
 import {
   DeleteVehicle,
@@ -10,7 +9,8 @@ import {
   SaveVehicle,
   UpdateVehicle,
 } from "../services/vehicles";
-import downloadExcel from "../utils/exportSheet";
+import useSessionStore from "@/store/session";
+import downloadExcel from "@/utils/exportSheet";
 
 const defaultVehicle: Vehicle = {
   id: 0,

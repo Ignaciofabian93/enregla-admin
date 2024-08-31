@@ -4,8 +4,8 @@ import { toast } from "react-toastify";
 import { Agency } from "../types/agency";
 import { CreateBranch, DeleteBranch, GetBranches, UpdateBranch } from "../services/branches";
 import { GetAllAgencies } from "../services/agencies";
-import useSessionStore from "../store/session";
-import downloadExcel from "../utils/exportSheet";
+import useSessionStore from "@/store/session";
+import downloadExcel from "@/utils/exportSheet";
 
 const defaultBranch: Branch = {
   id: 0,
@@ -109,7 +109,7 @@ export default function useBranch() {
   };
 
   const saveBranch = async () => {
-    const { agency, address, location, telephone, agency_id, id } = branch;
+    const { agency, address, location, id } = branch;
     if (!agency || !address || !location) {
       notifyError("Por favor complete todos los campos");
       return;
@@ -117,6 +117,8 @@ export default function useBranch() {
     const response = edit
       ? await UpdateBranch({ token: session.token, id, branch })
       : await CreateBranch({ token: session.token, branch });
+    console.log("RES: ", response);
+
     if (response.error) notifyError(response.error);
     else notifyMessage(response.message), closeModal(), fetchBranches();
   };

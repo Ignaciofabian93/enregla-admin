@@ -1,9 +1,9 @@
+import { FormattedBranch } from "@/types/branch";
+import { Supply } from "@/types/supply";
+import { User } from "@/types/user";
+import { FormattedVehicle } from "@/types/vehicle";
 import { Workbook } from "exceljs";
 import { saveAs } from "file-saver";
-import { User } from "../types/user";
-import { FormattedBranch } from "../types/branch";
-import { FormattedVehicle } from "../types/vehicle";
-import { Supply } from "../types/supply";
 
 type Rows = User[] | FormattedBranch[] | FormattedVehicle[] | Supply[];
 
