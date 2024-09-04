@@ -11,6 +11,7 @@ export default function Home() {
     <Layout>
       <div className="w-full h-[16%] flex items-center mt-2 pt-[1rem] px-[1.5rem]">
         <Header searchedText={""} searchText={() => {}} />
+        <p>Hola</p>
       </div>
       <div>
         <LabelQuantityBarChart labels={labels} />

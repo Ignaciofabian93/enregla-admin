@@ -1,4 +1,4 @@
-import { UserIcon } from "../../assets/icons/user";
+import { UserIcon } from "@/assets/icons/user";
 import Image from "next/image";
 import CustomInput from "./input";
 import useSessionStore from "@/store/session";

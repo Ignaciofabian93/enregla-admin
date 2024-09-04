@@ -1,11 +1,9 @@
 services:
-  web:
+  administration:
     build:
       context: .
       dockerfile: Dockerfile
     restart: always
-    container_name: enregla-web
-    env_file:
-      - .env
+    container_name: enregla-admin
     ports:
       - "3001:3001"
