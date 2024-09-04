@@ -117,8 +117,6 @@ export default function useBranch() {
     const response = edit
       ? await UpdateBranch({ token: session.token, id, branch })
       : await CreateBranch({ token: session.token, branch });
-    console.log("RES: ", response);
-
     if (response.error) notifyError(response.error);
     else notifyMessage(response.message), closeModal(), fetchBranches();
   };
