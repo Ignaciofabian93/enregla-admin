@@ -9,7 +9,7 @@ export async function GetAllLabels({ token }: { token: string }) {
         Authorization: `Bearer ${token}`,
       },
     };
-    const response = await fetch(`${endpoint}/label`, options);
+    const response = await fetch(`${endpoint}/all-labels`, options);
     const data = await response.json();
     return data;
   } catch (error) {

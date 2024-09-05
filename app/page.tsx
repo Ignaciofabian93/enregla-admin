@@ -2,8 +2,8 @@
 import { useRouter } from "next/navigation";
 import { Spinner } from "@nextui-org/spinner";
 import { useEffect } from "react";
-import useSessionStore from "@/store/session";
 import { GetMe } from "@/services/auth";
+import useSessionStore from "@/store/session";
 
 export default function Auth() {
   const router = useRouter();
