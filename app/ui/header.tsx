@@ -9,7 +9,7 @@ import CustomButton from "./button";
 type Header = {
   searchedText: string;
   searchText: (text: string) => void;
-  download: () => void;
+  download?: () => void;
 };
 
 const logo = require("@/assets/images/brand.png");
