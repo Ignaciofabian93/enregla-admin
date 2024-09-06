@@ -29,10 +29,10 @@ export default function useHome() {
 
   useEffect(() => {
     fetchLabels();
-  }, []);
+  }, [session.token]);
 
   const fetchLabels = async () => {
-    if (session) {
+    if (session.token) {
       const response = await GetAllLabels({ token: session.token });
       const formattedLabels = response.labels.map((label: Label) => ({
         id: label.id,

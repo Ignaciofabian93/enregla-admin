@@ -2,7 +2,17 @@
 import Layout from "@/app/ui/layout";
 import useHome from "@/hooks/useHome";
 import Header from "../ui/header";
-import LabelStatistics from "../ui/charts/barchart";
+import dynamic from "next/dynamic";
+import { Spinner } from "@nextui-org/spinner";
+
+const LabelStatistics = dynamic(() => import("../ui/charts/barchart"), {
+  ssr: false,
+  loading: () => (
+    <div className="w-full flex items-center justify-center">
+      <Spinner size="lg" color="default" />
+    </div>
+  ),
+});
 
 export default function Home() {
   const { labels, exportReport } = useHome();
