@@ -64,84 +64,121 @@ export default function LabelStatistics({ labels }: { labels: Label[] }) {
   }));
 
   // Chart configurations
-  const chartOptions = (categories: string[], title: string): ApexOptions => ({
+  const chartOptions = (categories: string[], title: string, brandNames?: string[]): ApexOptions => ({
     chart: {
       type: "bar",
     },
     xaxis: {
       categories,
+      labels: {
+        style: {
+          colors: "#fff",
+        },
+      },
+    },
+    yaxis: {
+      labels: {
+        style: {
+          colors: "#fff",
+        },
+      },
     },
     title: {
       text: title,
+      style: {
+        color: "#fff",
+      },
+    },
+    tooltip: {
+      y: {
+        formatter: (val: number, opts: any) => {
+          const branchIndex = opts.dataPointIndex;
+          return brandNames ? `${val} - ${brandNames[branchIndex]}` : `${val}`;
+        },
+      },
+      theme: "dark",
+      style: {
+        fontSize: "14px",
+      },
+    },
+    legend: {
+      position: "top",
+      floating: true,
+      horizontalAlign: "center",
+      offsetY: -10,
+      labels: {
+        colors: "#fff",
+      },
     },
   });
 
   return (
     <div>
-      {/* 1. Total Labels by Branch */}
-      <div>
-        <h3>Total Labels by Branch</h3>
-        <Chart
-          options={chartOptions(Object.keys(branchQuantities), "Total Labels by Branch")}
-          series={[{ name: "Total Labels", data: Object.values(branchQuantities) }]}
-          type="bar"
-          height={350}
-        />
+      <div className="w-full flex items-center">
+        {/* 1. Total Labels by Branch */}
+        <div className="w-[48%]">
+          <Chart
+            options={chartOptions(Object.keys(branchQuantities), "Total de etiquetas por sucursal")}
+            series={[{ name: "Total de etiquetas", data: Object.values(branchQuantities) }]}
+            type="bar"
+            height={300}
+          />
+        </div>
+
+        {/* 2. Average Labels per Day by Branch */}
+        <div className="w-[48%]">
+          <Chart
+            options={chartOptions(
+              averageLabelsPerDay.map((stat) => stat.branch_id.toString()),
+              "Promedio de etiquetas por día por sucursal"
+            )}
+            series={[{ name: "Promedio de etiquetas", data: averageLabelsPerDay.map((stat) => stat.average) }]}
+            type="bar"
+            height={300}
+          />
+        </div>
       </div>
 
-      {/* 2. Average Labels per Day by Branch */}
-      <div>
-        <h3>Average Labels per Day by Branch</h3>
-        <Chart
-          options={chartOptions(
-            averageLabelsPerDay.map((stat) => stat.branch_id.toString()),
-            "Average Labels per Day"
-          )}
-          series={[{ name: "Average Labels", data: averageLabelsPerDay.map((stat) => stat.average) }]}
-          type="bar"
-          height={350}
-        />
-      </div>
+      <div className="w-full flex items-center">
+        {/* 3. Most Frequent Vehicle Brand Frequency by Branch */}
+        <div className="w-[48%]">
+          <Chart
+            options={chartOptions(
+              mostFrequentBrandFrequency.map((stat) => stat.branch_id.toString()),
+              "Marcas más frecuentes por sucursal",
+              mostFrequentBrandFrequency.map((stat) => stat.brand)
+            )}
+            series={[{ name: "Frecuencia de marca", data: mostFrequentBrandFrequency.map((stat) => stat.frequency) }]}
+            type="bar"
+            height={300}
+          />
+        </div>
 
-      {/* 3. Most Frequent Vehicle Brand Frequency by Branch */}
-      <div>
-        <h3>Most Frequent Vehicle Brand Frequency by Branch</h3>
-        <Chart
-          options={chartOptions(
-            mostFrequentBrandFrequency.map((stat) => stat.branch_id.toString()),
-            "Most Frequent Vehicle Brand Frequency"
-          )}
-          series={[{ name: "Brand Frequency", data: mostFrequentBrandFrequency.map((stat) => stat.frequency) }]}
-          type="bar"
-          height={350}
-        />
-      </div>
-
-      {/* 4. Percentage of Labels with VIN, Plate, Logo by Branch */}
-      <div>
-        <h3>Label Features (VIN, Plate, Logo) by Branch</h3>
-        <Chart
-          options={chartOptions(
-            labelFeaturesPercentage.map((stat) => stat.branch_id.toString()),
-            "Label Features by Branch"
-          )}
-          series={[
-            {
-              name: "VIN Percentage",
-              data: labelFeaturesPercentage.map((stat) => stat.vin_percentage),
-            },
-            {
-              name: "Plate Percentage",
-              data: labelFeaturesPercentage.map((stat) => stat.plate_percentage),
-            },
-            {
-              name: "Logo Percentage",
-              data: labelFeaturesPercentage.map((stat) => stat.logo_percentage),
-            },
-          ]}
-          type="bar"
-          height={350}
-        />
+        {/* 4. Percentage of Labels with VIN, Plate, Logo by Branch */}
+        <div className="w-[48%]">
+          <Chart
+            options={chartOptions(
+              labelFeaturesPercentage.map((stat) => stat.branch_id.toString()),
+              "Caracteristicas de etiquetas por sucursal"
+            )}
+            series={[
+              {
+                name: "VIN %",
+                data: labelFeaturesPercentage.map((stat) => stat.vin_percentage),
+              },
+              {
+                name: "Patente %",
+                data: labelFeaturesPercentage.map((stat) => stat.plate_percentage),
+              },
+              {
+                name: "Logo %",
+                data: labelFeaturesPercentage.map((stat) => stat.logo_percentage),
+              },
+            ]}
+            type="bar"
+            height={300}
+          />
+        </div>
       </div>
     </div>
   );

@@ -1,11 +1,11 @@
+import { Branch } from "./branch";
+
 export type Label = {
   id: number;
   user_id: number;
   date: string;
   branch_id: number;
-  branch_address: string;
-  branch_location: string;
-  branch_telephone: string;
+  branch: Branch;
   label_quantity: number;
   wrong_labels: number;
   purchase_number: string;
