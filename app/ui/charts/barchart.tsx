@@ -1,4 +1,5 @@
-import { FormattedLabel, Label } from "@/types/label";
+"use client";
+import { FormattedLabel } from "@/types/label";
 import { ApexOptions } from "apexcharts";
 import Chart from "react-apexcharts";
 
