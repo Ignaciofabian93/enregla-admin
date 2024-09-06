@@ -1,3 +1,4 @@
+"use client";
 import { Session } from "@/types/session";
 import { create } from "zustand";
 import { persist, createJSONStorage } from "zustand/middleware";
