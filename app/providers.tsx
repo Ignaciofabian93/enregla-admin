@@ -1,3 +1,4 @@
+"use client";
 import { NextUIProvider } from "@nextui-org/system";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
