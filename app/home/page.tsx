@@ -1,8 +1,8 @@
 "use client";
 import Layout from "@/app/ui/layout";
+import useHome from "@/hooks/useHome";
 import Header from "../ui/header";
-import useHome from "../../hooks/useHome";
-import Charts from "../ui/charts/barchart";
+import LabelStatistics from "../ui/charts/barchart";
 
 export default function Home() {
   const { labels, exportReport } = useHome();
@@ -34,7 +34,7 @@ export default function Home() {
             </div>
           </div>
         </div>
-        <Charts labels={labels} />
+        <LabelStatistics labels={labels} />
       </div>
     </Layout>
   );
