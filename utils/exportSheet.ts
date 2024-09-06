@@ -1,11 +1,12 @@
 import { FormattedBranch } from "@/types/branch";
+import { FormattedLabel } from "@/types/label";
 import { Supply } from "@/types/supply";
 import { User } from "@/types/user";
 import { FormattedVehicle } from "@/types/vehicle";
 import { Workbook } from "exceljs";
 import { saveAs } from "file-saver";
 
-type Rows = User[] | FormattedBranch[] | FormattedVehicle[] | Supply[];
+type Rows = User[] | FormattedBranch[] | FormattedVehicle[] | Supply[] | FormattedLabel[];
 
 type Excel = {
   headers: { label: string; key: string }[];
@@ -39,6 +40,9 @@ export default function downloadExcel({ headers, rows, sheet }: Excel) {
     } else if (isSupply(row)) {
       rowValues = headers.map((header) => row[header.key as keyof Supply]);
       worksheet.addRow(rowValues);
+    } else if (isLabel(row)) {
+      rowValues = headers.map((header) => row[header.key as keyof FormattedLabel]);
+      worksheet.addRow(rowValues);
     }
   });
 
@@ -63,6 +67,10 @@ export default function downloadExcel({ headers, rows, sheet }: Excel) {
 
   function isSupply(row: any): row is Supply {
     return (row as Supply).category !== undefined;
+  }
+
+  function isLabel(row: any): row is FormattedLabel {
+    return (row as FormattedLabel).vehicle_plate !== undefined;
   }
 
   return workbook.xlsx.writeBuffer();

@@ -4,15 +4,17 @@ import Image from "next/image";
 import CustomInput from "./input";
 import useSessionStore from "@/store/session";
 import { usePathname } from "next/navigation";
+import CustomButton from "./button";
 
 type Header = {
   searchedText: string;
   searchText: (text: string) => void;
+  download: () => void;
 };
 
 const logo = require("@/assets/images/brand.png");
 
-export default function Header({ searchedText, searchText }: Header) {
+export default function Header({ searchedText, searchText, download }: Header) {
   const path = usePathname();
   const { session } = useSessionStore();
   return (
@@ -33,6 +35,7 @@ export default function Header({ searchedText, searchText }: Header) {
               />
             </div>
           )}
+          {path === "/home" && <CustomButton text="Descargar reporte" onClick={download} />}
           <div className="min-w-[24%] max-w-[40%] h-full px-[8px] rounded-[8px] flex items-center justify-between">
             <div>
               <h3 className="text-[18px]">{session.name}</h3>

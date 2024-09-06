@@ -1,8 +1,8 @@
-import { Label } from "@/types/label";
+import { FormattedLabel, Label } from "@/types/label";
 import { ApexOptions } from "apexcharts";
 import Chart from "react-apexcharts";
 
-export default function LabelStatistics({ labels }: { labels: Label[] }) {
+export default function LabelStatistics({ labels }: { labels: FormattedLabel[] }) {
   // 1. Total Labels by Branch
   const branchQuantities = labels.reduce<{ [key: number]: number }>((acc, label) => {
     acc[label.branch_id] = (acc[label.branch_id] || 0) + label.label_quantity;

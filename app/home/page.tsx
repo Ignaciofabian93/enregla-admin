@@ -5,11 +5,11 @@ import useHome from "../../hooks/useHome";
 import Charts from "../ui/charts/barchart";
 
 export default function Home() {
-  const { labels } = useHome();
+  const { labels, exportReport } = useHome();
 
-  const branches = labels.reduce<{ id: number; address: string; agency: string }[]>((acc, label) => {
+  const branches = labels.reduce<{ id: number; address: string }[]>((acc, label) => {
     if (!acc.some((branch) => branch.id === label.branch_id)) {
-      acc.push({ id: label.branch_id, address: label.branch.address, agency: label.branch.agency });
+      acc.push({ id: label.branch_id, address: label.branch_address });
     }
     return acc;
   }, []);
@@ -17,7 +17,7 @@ export default function Home() {
   return (
     <Layout>
       <div className="w-full h-[16%] flex items-center mt-2 pt-[1rem] px-[1.5rem]">
-        <Header searchedText={""} searchText={() => {}} />
+        <Header searchedText={""} searchText={() => {}} download={exportReport} />
       </div>
       <div className="w-[90%] h-[80%] mt-4 overflow-y-scroll mx-auto no-scrollbar">
         <div className="w-full h-[30%]">
@@ -29,7 +29,6 @@ export default function Home() {
                 <div key={branch.id}>
                   <p className="text-[12px]">ID: {branch.id}</p>
                   <p className="text-[12px]">Dirección: {branch.address}</p>
-                  <p className="text-[12px]">Concesionaria: {branch.agency}</p>
                 </div>
               ))}
             </div>
