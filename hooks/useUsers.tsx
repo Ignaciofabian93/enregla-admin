@@ -1,3 +1,4 @@
+"use client";
 import { useEffect, useState } from "react";
 import { User } from "../types/user";
 import { Branch } from "../types/branch";

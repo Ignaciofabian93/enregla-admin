@@ -1,3 +1,4 @@
+"use client";
 import { useEffect, useState } from "react";
 import { FormattedLabel, Label } from "../types/label";
 import { GetAllLabels } from "../services/labels";

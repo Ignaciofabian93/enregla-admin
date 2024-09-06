@@ -1,3 +1,4 @@
+"use client";
 import { useEffect, useState } from "react";
 import { toast } from "react-toastify";
 import { Brand, Model, Vehicle } from "../types/vehicle";

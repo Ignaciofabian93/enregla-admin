@@ -18,7 +18,6 @@ export default function Auth() {
   useEffect(() => {
     if (session.token) {
       getUserInfo();
-      redirect("/home");
     } else {
       redirect("/login");
     }
@@ -32,9 +31,9 @@ export default function Auth() {
         id: response.user.id,
         email: response.user.email,
         name: response.user.name,
-        rut: response.user.rut,
       };
       setSession(newSession);
+      redirect("/home");
     }
   };
 

@@ -1,3 +1,4 @@
+"use client";
 import { useEffect, useState } from "react";
 import { Branch } from "../types/branch";
 import { toast } from "react-toastify";
